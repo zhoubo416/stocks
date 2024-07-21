@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "stock-app",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,7 +10,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@primevue/themes": "^4.0.0",
+    "axios": "^1.7.2",
     "nuxt": "^3.12.4",
+    "primevue": "^4.0.0",
+    "tailwindcss-primeui": "^0.3.4",
     "vue": "latest"
+  },
+  "devDependencies": {
+    "@primevue/nuxt-module": "^4.0.0"
   }
 }
