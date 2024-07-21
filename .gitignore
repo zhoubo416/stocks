@@ -1,0 +1,22 @@
+# Logs
+logs
+*.log
+
+# Node modules
+node_modules
+
+# Dist folder
+/dist
+
+# Nuxt build files
+.nuxt
+
+# IDE files
+.idea
+.vscode
+
+# OS generated files
+.DS_Store
+
+# Local configuration files
+.env.local
