@@ -7,6 +7,17 @@ const url = 'https://26.push2.eastmoney.com/api/qt/clist/get?pn=1&pz=200&po=1&np
 const url2Stock = (f12:string)=> `https://push2.eastmoney.com/api/qt/clist/get?fid=f62&po=1&pz=500&pn=1&np=1&fltt=2&invt=2&ut=b2884a393a59ad64002292a3e90d46a5&fs=b%3A${f12}&fields=f12%2Cf14%2Cf2%2Cf3%2Cf62%2Cf184%2Cf66%2Cf69%2Cf72%2Cf75%2Cf78%2Cf81%2Cf84%2Cf87%2Cf204%2Cf205%2Cf124%2Cf1%2Cf13`
 
 
+import { CronJob } from 'cron';
+
+const job = CronJob.from({
+    cronTime: '30/30 * * * *',
+    onTick: function () {
+      console.log('You will see this message every minute');
+      getStockInfo();
+    },
+    start: true,
+    timeZone: 'Asia/Shanghai'
+  });
 export const getStockInfo = async function() {
    
         // 1 判断是否正在运行中
@@ -15,9 +26,9 @@ export const getStockInfo = async function() {
             throw new Error('正在运行中');
         }
 
+        console.log('start');
         // 2 开始拉取数据
         await startStockLog();
-        console.log('start');
 
         // 删除当前日期的数据
         const result = await deleteByDt();
@@ -30,10 +41,14 @@ export const getStockInfo = async function() {
         if (dataJson?.data?.diff) {
             for (const e of dataJson.data.diff) {
                 await insertStockIndustries(e);
-
+                let dataJson2;
+                try {
                 // 获取每个行业的股票数据
-                const res2 = await axios.get(url2Stock(e.f12));
-                const dataJson2 = res2.data;
+                const res2 = await axios.get(url2Stock(e.f12)); 
+                dataJson2 = res2.data;
+                } catch (error) {
+                    console.log(error,'获取每个行业的股票数据');
+                }
 
                 // 处理股票数据
                 if (dataJson2?.data?.diff) {
@@ -49,6 +64,6 @@ export const getStockInfo = async function() {
         // 3 结束拉取数据
         await endStockLog();
         console.log(dataJson?.data?.diff.length, "---");
-        return dataJson?.data?.diff?.length || 0;
+        // return dataJson?.data?.diff?.length || 0;
     
 };
