@@ -14,6 +14,7 @@ const pool = new Pool({
 });
 
 export async function query(text:string, params:any) {
+  // console.log('executing query', text,params);
   const client = await pool.connect();
   try {
     return await client.query(text, params);
