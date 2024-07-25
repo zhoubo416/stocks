@@ -2,6 +2,13 @@
 
 import { query } from './db'; // 假设你的 db.js 文件路径
 import  dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault('Asia/Shanghai');
 export async function insertStock(data:any) {
 
 const dt = dayjs().format('YYYYMMDD');
