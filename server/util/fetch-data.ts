@@ -59,11 +59,12 @@ export const getStockInfo = async function() {
                     }
                 }
             }
+
+            console.log(dataJson?.data?.diff.length, "---");
         }
 
         // 3 结束拉取数据
         await endStockLog();
-        console.log(dataJson?.data?.diff.length, "---");
         // return dataJson?.data?.diff?.length || 0;
     
 };
