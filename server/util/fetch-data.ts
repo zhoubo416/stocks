@@ -10,7 +10,7 @@ const url2Stock = (f12:string)=> `https://push2.eastmoney.com/api/qt/clist/get?f
 import { CronJob } from 'cron';
 
 const job = CronJob.from({
-    cronTime: '30/30 * * * *',
+    cronTime: '0 8-21/15 * * *',
     onTick: function () {
       console.log('You will see this message every minute');
       getStockInfo();
